@@ -1,4 +1,4 @@
-project(sample-cuda CUDA)
+project(calculation-cuda CUDA)
 
 add_executable(${PROJECT_NAME} main.cu ../init.h)
 

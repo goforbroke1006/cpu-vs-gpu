@@ -1,3 +1,3 @@
-project(sample-proc)
+project(calculation-proc)
 
 add_executable(${PROJECT_NAME} main.cpp)

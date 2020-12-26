@@ -32,3 +32,5 @@ sudo apt -y install gcc-7 gcc-8
 sudo apt -y install g++-7 g++-8 g++-9
 
 sudo ln -s /usr/bin/gcc-8 /usr/local/cuda/bin/gcc
+
+sudo setcap cap_sys_admin+ep /usr/local/cuda-10.1/bin/nvprof
