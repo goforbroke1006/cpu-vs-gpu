@@ -57,7 +57,7 @@ profiling/vector-add-proc:
 	strace -c ./build/samples/vector-add/proc/vector-add-proc
 	ltrace -c ./build/samples/vector-add/proc/vector-add-proc
 	gprof -p -b ./build/samples/vector-add/proc/vector-add-proc ./build/samples/vector-add/proc/gmon.out
-
+	#
 	./build/samples/vector-add/proc/vector-add-proc
 	mv ./gmon.out ./build/samples/vector-add/proc/gmon.out
 	valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes --callgrind-out-file=./build/samples/vector-add/proc/vector-add-proc.cgout ./build/samples/vector-add/proc/vector-add-proc
