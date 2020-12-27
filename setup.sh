@@ -2,6 +2,9 @@
 
 set -e
 
+sudo apt update
+sudo apt install valgrind kcachegrind
+
 command_exists() {
   # check if command exists and fail otherwise
   command -v "$1" >/dev/null 2>&1
@@ -31,6 +34,13 @@ sudo apt install build-essential
 sudo apt -y install gcc-7 gcc-8
 sudo apt -y install g++-7 g++-8 g++-9
 
-sudo ln -s /usr/bin/gcc-8 /usr/local/cuda/bin/gcc
+if [[ ! -f /usr/local/cuda/bin/gcc ]]; then
+  sudo ln -s /usr/bin/gcc-8 /usr/local/cuda/bin/gcc
+fi
 
-sudo setcap cap_sys_admin+ep /usr/local/cuda-10.1/bin/nvprof
+sudo cp /etc/sudoers /root/sudoers.bak
+echo '========== !!! Copy next line and paste to "sudo visudo" !!! =========='
+echo "${USER} ALL = NOPASSWD: /usr/local/cuda-10.1/bin/nvprof, /usr/local/cuda/bin/nvprof"
+read -n 1 -s -r -p "Press any key to continue and open visudo"
+sudo visudo
+echo '========== !!! You have to restart computer !!! =========='

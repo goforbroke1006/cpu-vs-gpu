@@ -13,7 +13,7 @@
 
 #include "../init.h"
 
-__global__ void cudakernel(float *buf) {
+__global__ void initCalculation(float *buf) {
     int i = threadIdx.x + blockIdx.x * blockDim.x;
     buf[i] = 1.0f * i / N;
     for (int j = 0; j < M; j++)
@@ -24,7 +24,7 @@ int main() {
     float data[N];
     float *d_data;
     cudaMalloc(&d_data, N * sizeof(float));
-    cudakernel<<<N / 256, 256>>>(d_data);
+    initCalculation<<<N / 256, 256>>>(d_data);
     cudaMemcpy(data, d_data, N * sizeof(float), cudaMemcpyDeviceToHost);
     cudaFree(d_data);
 

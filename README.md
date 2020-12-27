@@ -9,6 +9,7 @@ Based on answer https://stackoverflow.com/a/7664280 by [Patrick87](https://stack
 * NVIDIA driver >= 460
 * CUDA 10
 * GCC 8
+* Valgrind
 
 ### How to run
 
