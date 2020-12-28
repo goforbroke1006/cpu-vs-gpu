@@ -2,22 +2,17 @@
 // Created by goforbroke on 25.12.2020.
 //
 
-//#include <iostream>
-//
-//int main() {
-//    std::cout << "Hello, World!" << std::endl;
-//    return 0;
-//}
-
 #include <cstdio>
-
+#include <cstdlib>
 #include "../init.h"
 
-int main() {
-    float data[N];
-    for (int i = 0; i < N; i++) {
-        data[i] = 1.0f * i / N;
-        for (int j = 0; j < M; j++) {
+int main(int argc, char **argv) {
+    size_t NSAMPLES = atoi(argv[1]);
+
+    float data[NSAMPLES];
+    for (int i = 0; i < NSAMPLES; i++) {
+        data[i] = 1.0f * i / NSAMPLES;
+        for (int j = 0; j < M; j++) { // fake addition load
             data[i] = data[i] * data[i] - 0.25f;
         }
     }

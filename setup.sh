@@ -2,8 +2,11 @@
 
 set -e
 
+chmod +x ./bin/benchmark.sh
+chmod +x ./bin/benchmark-cuda.sh
+
 sudo apt update
-sudo apt install valgrind kcachegrind
+sudo apt install valgrind kcachegrind graphviz
 
 command_exists() {
   # check if command exists and fail otherwise

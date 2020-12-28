@@ -10,55 +10,30 @@ build:
 	cmake --build ./build/
 
 
-calculation-cuda: benchmark/calculation-cuda memcheck/calculation-cuda profiling/calculation-cuda
-calculation-proc: benchmark/calculation-proc profiling/calculation-proc
-vector-add-cuda: benchmark/vector-add-cuda memcheck/vector-add-cuda profiling/vector-add-cuda
-vector-add-proc: benchmark/vector-add-proc profiling/vector-add-proc
+calculation-cuda:
+	./bin/benchmark-cuda.sh ./build/samples/calculation/cuda/calculation-cuda 256 2>&1 | tee calculation-cuda-2-8.log
+	./bin/benchmark-cuda.sh ./build/samples/calculation/cuda/calculation-cuda 4096 2>&1 | tee calculation-cuda-2-12.log
+	./bin/benchmark-cuda.sh ./build/samples/calculation/cuda/calculation-cuda 65536 2>&1 | tee calculation-cuda-2-16.log
+	./bin/benchmark-cuda.sh ./build/samples/calculation/cuda/calculation-cuda 262144 2>&1 | tee calculation-cuda-2-18.log
 
-benchmark/calculation-cuda:
-	echo '--------------------------------------------------'
-	time ./build/samples/calculation/cuda/calculation-cuda
+calculation-proc:
+	./bin/benchmark.sh ./build/samples/calculation/proc/calculation-proc 256 2>&1 | tee calculation-proc-2-8.log
+	./bin/benchmark.sh ./build/samples/calculation/proc/calculation-proc 4096 2>&1 | tee calculation-proc-2-12.log
+	./bin/benchmark.sh ./build/samples/calculation/proc/calculation-proc 65536 2>&1 | tee calculation-proc-2-16.log
+	./bin/benchmark.sh ./build/samples/calculation/proc/calculation-proc 262144 2>&1 | tee calculation-proc-2-18.log
 
-benchmark/calculation-proc:
-	echo '--------------------------------------------------'
-	time ./build/samples/calculation/proc/calculation-proc
+vector-add-cuda:
+	./bin/benchmark-cuda.sh ./build/samples/vector-add/cuda/vector-add-cuda 256 2>&1 | tee vector-add-cuda-2-8.log
+	./bin/benchmark-cuda.sh ./build/samples/vector-add/cuda/vector-add-cuda 4096 2>&1 | tee vector-add-cuda-2-12.log
+	./bin/benchmark-cuda.sh ./build/samples/vector-add/cuda/vector-add-cuda 65536 2>&1 | tee vector-add-cuda-2-16.log
+	./bin/benchmark-cuda.sh ./build/samples/vector-add/cuda/vector-add-cuda 262144 2>&1 | tee vector-add-cuda-2-18.log
+	#./bin/benchmark-cuda.sh ./build/samples/vector-add/cuda/vector-add-cuda 16777216 2>&1 | tee vector-add-cuda-2-24.log
+	#./bin/benchmark-cuda.sh ./build/samples/vector-add/cuda/vector-add-cuda 268435456 2>&1 | tee vector-add-cuda-2-28.log
 
-benchmark/vector-add-cuda:
-	echo '--------------------------------------------------'
-	time ./build/samples/vector-add/cuda/vector-add-cuda
-
-benchmark/vector-add-proc:
-	echo '--------------------------------------------------'
-	time ./build/samples/vector-add/proc/vector-add-proc
-
-memcheck/calculation-cuda:
-	echo '--------------------------------------------------'
-	cuda-memcheck ./build/samples/calculation/cuda/calculation-cuda
-
-memcheck/vector-add-cuda:
-	echo '--------------------------------------------------'
-	cuda-memcheck ./build/samples/vector-add/cuda/vector-add-cuda
-
-profiling/calculation-cuda:
-	echo '--------------------------------------------------'
-	sudo $(NVPROF) ./build/samples/calculation/cuda/calculation-cuda
-
-profiling/calculation-proc:
-	echo '--------------------------------------------------'
-	valgrind --tool=callgrind ./build/samples/calculation/proc/calculation-proc
-
-profiling/vector-add-cuda:
-	echo '--------------------------------------------------'
-	sudo $(NVPROF) ./build/samples/vector-add/cuda/vector-add-cuda
-
-.ONESHELL:
-profiling/vector-add-proc:
-	echo '--------------------------------------------------'
-	strace -c ./build/samples/vector-add/proc/vector-add-proc
-	ltrace -c ./build/samples/vector-add/proc/vector-add-proc
-	gprof -p -b ./build/samples/vector-add/proc/vector-add-proc ./build/samples/vector-add/proc/gmon.out
-	#
-	./build/samples/vector-add/proc/vector-add-proc
-	mv ./gmon.out ./build/samples/vector-add/proc/gmon.out
-	valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes --callgrind-out-file=./build/samples/vector-add/proc/vector-add-proc.cgout ./build/samples/vector-add/proc/vector-add-proc
-	#kcachegrind ./build/samples/vector-add/proc/vector-add-proc.cgout
+vector-add-proc:
+	./bin/benchmark.sh ./build/samples/vector-add/proc/vector-add-proc 256 2>&1 | tee vector-add-proc-2-8.log
+	./bin/benchmark.sh ./build/samples/vector-add/proc/vector-add-proc 4096 2>&1 | tee vector-add-proc-2-12.log
+	./bin/benchmark.sh ./build/samples/vector-add/proc/vector-add-proc 65536 2>&1 | tee vector-add-proc-2-16.log
+	./bin/benchmark.sh ./build/samples/vector-add/proc/vector-add-proc 262144 2>&1 | tee vector-add-proc-2-18.log
+	#./bin/benchmark.sh ./build/samples/vector-add/proc/vector-add-proc 16777216 2>&1 | tee vector-add-proc-2-24.log
+	#./bin/benchmark.sh ./build/samples/vector-add/proc/vector-add-proc 268435456 2>&1 | tee vector-add-proc-2-28.log

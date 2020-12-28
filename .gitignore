@@ -3,4 +3,6 @@ build/
 cmake-build-debug/
 
 *.out
+*.log
 callgrind.out.*
+callgrind.out

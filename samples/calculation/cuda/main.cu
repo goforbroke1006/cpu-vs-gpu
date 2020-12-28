@@ -2,30 +2,25 @@
 // Created by goforbroke on 25.12.2020.
 //
 
-//#include <iostream>
-//
-//int main() {
-//    std::cout << "Hello, World!" << std::endl;
-//    return 0;
-//}
-
 #include <cstdio>
-
 #include "../init.h"
 
-__global__ void initCalculation(float *buf) {
+__global__ void initCalculation(float *buf, size_t n) {
     int i = threadIdx.x + blockIdx.x * blockDim.x;
-    buf[i] = 1.0f * i / N;
-    for (int j = 0; j < M; j++)
+    buf[i] = 1.0f * i / n;
+    for (int j = 0; j < M; j++) { // fake addition load
         buf[i] = buf[i] * buf[i] - 0.25f;
+    }
 }
 
-int main() {
-    float data[N];
+int main(int argc, char **argv) {
+    size_t NSAMPLES = atoi(argv[1]);
+
+    float data[NSAMPLES];
     float *d_data;
-    cudaMalloc(&d_data, N * sizeof(float));
-    initCalculation<<<N / 256, 256>>>(d_data);
-    cudaMemcpy(data, d_data, N * sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMalloc(&d_data, NSAMPLES * sizeof(float));
+    initCalculation<<<NSAMPLES / 256, 256>>>(d_data, NSAMPLES);
+    cudaMemcpy(data, d_data, NSAMPLES * sizeof(float), cudaMemcpyDeviceToHost);
     cudaFree(d_data);
 
 //    int sel;
