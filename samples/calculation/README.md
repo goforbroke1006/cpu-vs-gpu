@@ -1,0 +1,1 @@
+Based on answer https://stackoverflow.com/a/7664280 by [Patrick87](https://stackoverflow.com/users/847269/patrick87)

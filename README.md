@@ -1,6 +1,6 @@
 # cpu-vs-gpu
 
-Based on answer https://stackoverflow.com/a/7664280 by [Patrick87](https://stackoverflow.com/users/847269/patrick87)
+CPU and GPU profiles comparison.
 
 ### Requirements
 
@@ -48,4 +48,5 @@ Based on answer https://stackoverflow.com/a/7664280 by [Patrick87](https://stack
 
 ### Useful links
 
-* https://cuda-tutorial.readthedocs.io/en/latest/tutorials/tutorial01/
+* https://cuda-tutorial.readthedocs.io/en/latest/
+* https://eax.me/c-cpp-profiling/
