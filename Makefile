@@ -9,8 +9,9 @@ build:
 	cmake -DCMAKE_BUILD_TYPE=Debug -B./build/ -S./
 	cmake --build ./build/
 
-
+.ONESHELL:
 calculation-cuda:
+	export DRI_PRIME=1
 	./bin/benchmark-cuda.sh ./build/samples/calculation/cuda/calculation-cuda 256 2>&1 | tee calculation-cuda-2-8.log
 	./bin/benchmark-cuda.sh ./build/samples/calculation/cuda/calculation-cuda 4096 2>&1 | tee calculation-cuda-2-12.log
 	./bin/benchmark-cuda.sh ./build/samples/calculation/cuda/calculation-cuda 65536 2>&1 | tee calculation-cuda-2-16.log

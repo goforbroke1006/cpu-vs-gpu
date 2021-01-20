@@ -26,7 +26,7 @@ if [[ $(nvcc -V | grep -c 'NVIDIA') -eq 0 ]]; then
   exit 1
 fi
 
-nvidia-smi
+DRI_PRIME=1 nvidia-smi
 if [[ $(nvidia-smi | grep -c 'Driver Version') -eq 0 ]]; then
   echo 'Something went wrong, nvidia-smi cant found suitable hardware or valid and enabled driver!'
   echo 'If you have NVIDIA card and driver, try to disable "Secure boot" in BIOS or leave enabled and switch it from "Deployed" to "Audit" mode.'
@@ -43,7 +43,7 @@ fi
 
 sudo cp /etc/sudoers /root/sudoers.bak
 echo '========== !!! Copy next line and paste to "sudo visudo" !!! =========='
-echo "${USER} ALL = NOPASSWD: /usr/local/cuda-10.1/bin/nvprof, /usr/local/cuda/bin/nvprof"
+echo "${USER} ALL = NOPASSWD: /usr/local/cuda-10.0/bin/nvprof, /usr/local/cuda/bin/nvprof"
 read -n 1 -s -r -p "Press any key to continue and open visudo"
 sudo visudo
 echo '========== !!! You have to restart computer !!! =========='

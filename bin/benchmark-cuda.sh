@@ -6,6 +6,9 @@ EXECUTABLE="./"$(basename $1)
 ARGUMENTS="${@:2}"
 WORKING_DIR=$(dirname "$1")
 
+# setup GPU as main graphic process
+export DRI_PRIME=1
+
 printf "\n\n---------- ---------- ---------- ---------- ----------\n"
 
 echo "Date:        $(date +"%Y-%m-%d %H:%M:%S")"
